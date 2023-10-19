@@ -17,7 +17,7 @@ public static class Lexer
         {
             if (input[j] == '"')
             {
-                return new Token(TokenType.String, input.Substring(i, j + 1));
+                return new Token(TokenType.String, input.Substring(i, j - i + 1));
             }
         }
 
