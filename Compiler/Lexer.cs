@@ -51,6 +51,21 @@ public static class Lexer
         return new Token(TokenType.Identifier, input[i..j]);
     }
 
+    private static Token? LexBrace(string input, int i)
+    {
+        if (input[i] == '(')
+        {
+            return new Token(TokenType.OpenParen, "(");
+        }
+
+        if (input[i] == ')')
+        {
+            return new Token(TokenType.CloseParen, ")");
+        }
+
+        return null;
+    }
+
     public static List<Token>? Lex(string input)
     {
         var tokens = new List<Token>();
@@ -82,6 +97,11 @@ public static class Lexer
             }
 
             if (check(LexIdentifier(input, i)))
+            {
+                continue;
+            }
+
+            if (check(LexBrace(input, i)))
             {
                 continue;
             }

@@ -24,4 +24,18 @@ public class LexerTests
 
         CollectionAssert.AreEqual(expected, actual);
     }
+
+    [TestMethod]
+    public void LexHelloWorld()
+    {
+        var actual = Lexer.Lex("print(\"Hello world\")");
+        var expected = new List<Token> {
+            new(TokenType.Identifier, "print"),
+            new(TokenType.OpenParen, "("),
+            new(TokenType.String, "\"Hello world\""),
+            new(TokenType.CloseParen, ")"),
+        };
+
+        CollectionAssert.AreEqual(expected, actual);
+    }
 }

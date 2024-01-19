@@ -3,5 +3,7 @@
 public enum TokenType
 {
     Identifier,
-    String
+    String,
+    OpenParen,
+    CloseParen,
 }
