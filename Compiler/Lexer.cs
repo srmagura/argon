@@ -1,4 +1,6 @@
-﻿namespace Compiler;
+﻿using System.Text.RegularExpressions;
+
+namespace Compiler;
 
 public static class Lexer
 {
@@ -23,6 +25,30 @@ public static class Lexer
 
         // We got to the end without finding a closing quote
         return null;
+    }
+
+    private static readonly Regex identifierRegex = new(@"[a-zA-Z_]");
+
+    private static Token? LexIdentifier(string input, int i)
+    {
+        var j = i;
+
+        if (!identifierRegex.IsMatch(input[j].ToString()))
+        {
+            return null;
+        }
+
+        j++;
+
+        for (; j < input.Length; j++)
+        {
+            if (!identifierRegex.IsMatch(input[j].ToString()) && !char.IsDigit(input[j]))
+            {
+                break;
+            }
+        }
+
+        return new Token(TokenType.Identifier, input[i..j]);
     }
 
     public static List<Token>? Lex(string input)
@@ -51,6 +77,11 @@ public static class Lexer
             }
 
             if (check(LexString(input, i)))
+            {
+                continue;
+            }
+
+            if (check(LexIdentifier(input, i)))
             {
                 continue;
             }

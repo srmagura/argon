@@ -13,4 +13,15 @@ public class LexerTests
 
         CollectionAssert.AreEqual(expected, actual);
     }
+
+    [TestMethod]
+    public void LexIdentifier()
+    {
+        var actual = Lexer.Lex("print");
+        var expected = new List<Token> {
+            new(TokenType.Identifier, "print")
+        };
+
+        CollectionAssert.AreEqual(expected, actual);
+    }
 }
