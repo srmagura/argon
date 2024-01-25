@@ -8,7 +8,7 @@ public static class Lexer
     {
         var j = i;
 
-        if (input[j] != '"')
+        if (input[j] != '"' && input[j] != '\'')
         {
             return null;
         }
@@ -17,7 +17,7 @@ public static class Lexer
 
         for (; j < input.Length; j++)
         {
-            if (input[j] == '"')
+            if (input[j] == input[i])
             {
                 return new Token(TokenType.String, input.Substring(i, j - i + 1));
             }
@@ -51,8 +51,13 @@ public static class Lexer
         return new Token(TokenType.Identifier, input[i..j]);
     }
 
-    private static Token? LexBrace(string input, int i)
+    private static Token? LexDelimiter(string input, int i)
     {
+        if (input[i] == '.')
+        {
+            return new Token(TokenType.Dot, ".");
+        }
+
         if (input[i] == '(')
         {
             return new Token(TokenType.OpenParen, "(");
@@ -101,7 +106,7 @@ public static class Lexer
                 continue;
             }
 
-            if (check(LexBrace(input, i)))
+            if (check(LexDelimiter(input, i)))
             {
                 continue;
             }

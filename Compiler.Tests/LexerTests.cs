@@ -12,6 +12,13 @@ public class LexerTests
         };
 
         CollectionAssert.AreEqual(expected, actual);
+
+        actual = Lexer.Lex(" 'foo' ");
+        expected = new List<Token> {
+            new(TokenType.String, "'foo'")
+        };
+
+        CollectionAssert.AreEqual(expected, actual);
     }
 
     [TestMethod]
@@ -28,9 +35,11 @@ public class LexerTests
     [TestMethod]
     public void LexHelloWorld()
     {
-        var actual = Lexer.Lex("print(\"Hello world\")");
+        var actual = Lexer.Lex("console.log(\"Hello world\")");
         var expected = new List<Token> {
-            new(TokenType.Identifier, "print"),
+            new(TokenType.Identifier, "console"),
+            new(TokenType.Dot, "."),
+            new(TokenType.Identifier, "log"),
             new(TokenType.OpenParen, "("),
             new(TokenType.String, "\"Hello world\""),
             new(TokenType.CloseParen, ")"),

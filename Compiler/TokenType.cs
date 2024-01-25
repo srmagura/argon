@@ -4,6 +4,7 @@ public enum TokenType
 {
     Identifier,
     String,
+    Dot,
     OpenParen,
     CloseParen,
 }

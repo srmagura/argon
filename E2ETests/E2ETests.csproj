@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Fixtures\HelloWorld\" />
+    <Folder Include="Fixtures\" />
   </ItemGroup>
 
 </Project>
